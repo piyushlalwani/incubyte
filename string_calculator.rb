@@ -14,6 +14,9 @@ class StringCalculator
 
     nums_arr = extract_numbers(numbers_part, delimiter_regex(del))
     validate_negative_numbers(nums_arr)
+
+    nums_arr.reject! { |num| num > 1000 } # Ignore numbers larger than 1000
+
     nums_arr.sum
   end
 

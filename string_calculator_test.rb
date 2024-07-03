@@ -56,4 +56,8 @@ class StringCalculatorTest < Minitest::Test
     @lcal.add("1")
     assert_equal 2, @lcal.get_called_count
   end
+
+  def test_ignore_numbers_greater_than_1000
+    assert_equal 2, @calculator.add('2,1001')
+  end
 end
