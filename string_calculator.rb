@@ -47,7 +47,7 @@ class StringCalculator
   end
 
   def delimiter_regex(delimiter)
-    Regexp.new("[#{Regexp.escape(delimiter)}\n]")
+    delimiter.instance_of?(String) ? Regexp.new("[#{Regexp.escape(delimiter)}\n]") : delimiter 
   end
 
   def validate_negative_numbers(nums)
@@ -58,6 +58,8 @@ class StringCalculator
   def process_delimitters(del_str)
     return del_str[2] if del_str[2..].match(/\[.*\]/).nil?
 
-    del_str.match(/\[([^\[\]]+)\]/)[1]
+    delimiters = del_str.scan(/\[(.*?)\]/).flatten
+
+    Regexp.union(delimiters)
   end
 end
