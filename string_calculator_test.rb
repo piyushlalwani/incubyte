@@ -51,6 +51,9 @@ class StringCalculatorTest < Minitest::Test
   end
 
   def test_get_called_count_returns_correct_count_after_add_calls
-    assert_equal 0, @calculator.get_called_count
+    @lcal = StringCalculator.new
+    @lcal.add("")
+    @lcal.add("1")
+    assert_equal 2, @lcal.get_called_count
   end
 end

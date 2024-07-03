@@ -1,5 +1,11 @@
 class StringCalculator
+  def initialize
+    @called_count = 0
+  end
+
   def add(numbers)
+    @called_count += 1
+
     return 0 if numbers.empty?
 
     del, numbers_part = extract_del_and_numbers(numbers)
@@ -12,7 +18,7 @@ class StringCalculator
   end
 
   def get_called_count
-    0
+    @called_count
   end
 
   private
