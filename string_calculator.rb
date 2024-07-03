@@ -11,6 +11,10 @@ class StringCalculator
     nums_arr.sum
   end
 
+  def get_called_count
+    0
+  end
+
   private
 
   def validate_input(input)

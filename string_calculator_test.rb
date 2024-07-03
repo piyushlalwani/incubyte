@@ -6,6 +6,10 @@ class StringCalculatorTest < Minitest::Test
     @calculator = StringCalculator.new
   end
 
+  def test_get_called_count_returns_zero_when_not_called
+    assert_equal 0, @calculator.get_called_count
+  end
+
   def test_empty_string
     assert_equal 0, @calculator.add("")
   end
@@ -44,5 +48,9 @@ class StringCalculatorTest < Minitest::Test
     assert_raises(ArgumentError, 'negatives numbers not allowed -2,-3') do
       @calculator.add("1,-2,-3,4")
     end
+  end
+
+  def test_get_called_count_returns_correct_count_after_add_calls
+    assert_equal 0, @calculator.get_called_count
   end
 end
