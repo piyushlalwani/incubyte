@@ -2,9 +2,11 @@ class StringCalculator
   def add(numbers)
     return 0 if numbers.empty?
 
-    validate_input(numbers)
+    del, numbers_part = extract_del_and_numbers(numbers)
 
-    nums = extract_numbers(numbers)
+    validate_input(numbers_part)
+
+    nums = extract_numbers(numbers_part, delimiter_regex(del))
     nums.sum
   end
 
@@ -14,7 +16,22 @@ class StringCalculator
     raise ArgumentError, 'Invalid input' if input =~ /,\n\z/
   end
 
-  def extract_numbers(numbers)
-    numbers.split(/[\n,]/).map(&:to_i)
+  def extract_del_and_numbers(numbers)
+    if numbers.start_with?("//")
+      del = numbers[2]
+      numbers_part = numbers.split("\n", 2).last
+    else
+      del = ','
+      numbers_part = numbers
+    end
+    [del, numbers_part]
+  end
+
+  def extract_numbers(numbers, del)
+    numbers.split(del).map(&:to_i)
+  end
+
+  def delimiter_regex(delimiter)
+    Regexp.new("[#{delimiter}\n]")
   end
 end
