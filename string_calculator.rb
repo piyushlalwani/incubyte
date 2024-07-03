@@ -32,8 +32,9 @@ class StringCalculator
 
   def extract_del_and_numbers(numbers)
     if numbers.start_with?("//")
-      del = numbers[2]
-      numbers_part = numbers.split("\n", 2).last
+      splitted_string = numbers.split("\n", 2)
+      del = process_delimitters(splitted_string.first)
+      numbers_part = splitted_string.last
     else
       del = ','
       numbers_part = numbers
@@ -46,11 +47,17 @@ class StringCalculator
   end
 
   def delimiter_regex(delimiter)
-    Regexp.new("[#{delimiter}\n]")
+    Regexp.new("[#{Regexp.escape(delimiter)}\n]")
   end
 
   def validate_negative_numbers(nums)
     negatives = nums.select { |num| num.negative? }
     raise ArgumentError, "negatives numbers not allowed #{negatives.join(',')}" if negatives.any?
+  end
+
+  def process_delimitters(del_str)
+    return del_str[2] if del_str[2..].match(/\[.*\]/).nil?
+
+    del_str.match(/\[([^\[\]]+)\]/)[1]
   end
 end
