@@ -60,4 +60,12 @@ class StringCalculatorTest < Minitest::Test
   def test_ignore_numbers_greater_than_1000
     assert_equal 2, @calculator.add('2,1001')
   end
+
+  def test_with_custom_delimiter_of_any_length
+    assert_equal 5, @calculator.add("//[***]\n1***4***0")
+  end
+
+  def test_with_custom_delimiter_of_any_length
+    assert_equal 12, @calculator.add("//[***]\n1***4***7\n")
+  end
 end
