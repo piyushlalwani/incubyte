@@ -33,4 +33,16 @@ class StringCalculatorTest < Minitest::Test
   def test_add_with_custom_single_delimiter_pipe
     assert_equal 6, @calculator.add("//|\n1|2|3")
   end
+
+  def test_negative_numbers_should_raises_error
+    assert_raises(ArgumentError, 'negatives numbers not allowed -2') do
+      @calculator.add("1,-2")
+    end
+  end
+
+  def test_add_multiple_negative_numbers_should_raises_error
+    assert_raises(ArgumentError, 'negatives numbers not allowed -2,-3') do
+      @calculator.add("1,-2,-3,4")
+    end
+  end
 end

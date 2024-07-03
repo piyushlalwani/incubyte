@@ -6,8 +6,9 @@ class StringCalculator
 
     validate_input(numbers_part)
 
-    nums = extract_numbers(numbers_part, delimiter_regex(del))
-    nums.sum
+    nums_arr = extract_numbers(numbers_part, delimiter_regex(del))
+    validate_negative_numbers(nums_arr)
+    nums_arr.sum
   end
 
   private
@@ -33,5 +34,10 @@ class StringCalculator
 
   def delimiter_regex(delimiter)
     Regexp.new("[#{delimiter}\n]")
+  end
+
+  def validate_negative_numbers(nums)
+    negatives = nums.select { |num| num.negative? }
+    raise ArgumentError, "negatives numbers not allowed #{negatives.join(',')}" if negatives.any?
   end
 end
